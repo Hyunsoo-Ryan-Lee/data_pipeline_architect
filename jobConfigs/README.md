@@ -8,7 +8,7 @@ kubectl apply -f https://github.com/furiko-io/furiko/releases/latest/download/fu
 ### 2. CLI Install & Check
 ```bash
 wget https://github.com/furiko-io/furiko/releases/download/v0.2.0/furiko_linux_amd64
-sudo mv furiko_darwin_amd64 /usr/local/bin/furiko
+sudo mv furiko_linux_amd64 /usr/local/bin/furiko
 sudo chmod +x /usr/local/bin/furiko
 
 furiko --help
