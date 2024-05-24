@@ -48,7 +48,7 @@
 - jobConfigs/ - Kubernetes 상에서 파이프라인 작업 실행을 위한 작업 정의
 - db/ - 데이터베이스별 이행 쿼리가 들어있는 디렉토리
 - pipeline/ - 파이프라인 실행 관련 코드 모음 디렉토리
-- controller.py - 전체 ETL 작업에 대한 흐름을 순서대로 제어하는 함수 
+  - controller.py - 전체 ETL 작업에 대한 흐름을 순서대로 제어하는 함수 
   - 01_skeleton.py - extract, load, update, send 각 기능별 실행 함수가 모듈화 되어 정리된 파일
   - 02_extract.py - 연결된 데이터베이스에 SELECT 쿼리를 요청하여 데이터를 추출하는 함수 (쿼리 → Pandas DF 생성)
   - 03_load.py - 추출된 데이터를 적재 규칙에 맞게 Naver Cloud OBJ에 저장하는 함수
