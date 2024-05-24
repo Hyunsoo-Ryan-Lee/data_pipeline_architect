@@ -1,0 +1,49 @@
+apiVersion: execution.furiko.io/v1alpha1
+kind: JobConfig
+metadata:
+  name: database-prd-a-jobConfig
+  namespace: pipeline
+spec:
+  schedule:
+    cron:
+      expression: 00 09 * * *
+      timezone: Asia/Seoul
+    disabled: true
+  concurrency:
+    policy: Forbid
+  template:
+    spec:
+      parallelism:
+        withCount: 5
+        completionStrategy: AllSuccessful #AnySuccessful
+      taskTemplate:
+        pod:
+          spec:
+            containers:
+              - name: pipeline
+                image: hyunsoolee0506/pythonoperator:0.8
+                command: ["python3", "/mnt/data-pipeline/start.py"]
+                env:
+                  - name: EXECUTION_JOB
+                    value: "database_prd_a_job"
+                  - name: PARALLELISM
+                    value: "5"
+                  - name: COUNT_INDEX
+                    value: ${task.index_num}
+                volumeMounts:
+                  - mountPath: /mnt
+                    name: data-pipeline-volume
+                resources:
+                  requests:
+                    memory: "512"
+                    cpu: "300m"
+            restartPolicy: Never
+            tolerations: 
+            - effect: NoSchedule
+              key: atype
+              value: mem
+              operator: Equal
+            volumes:
+              - name: data-pipeline-volume
+                persistentVolumeClaim:
+                  claimName: data-pipeline-pvc
